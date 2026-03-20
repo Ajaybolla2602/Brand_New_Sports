@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportGear - Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .product-card { transition: all 0.3s; }
+        .product-card:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white">
+    <!-- PASTE THE EXACT SAME NAVBAR FROM index.html HERE -->
+
+    <div class="max-w-7xl mx-auto px-6 py-12">
+        <div class="flex flex-col md:flex-row justify-between items-start gap-8 mb-12">
+            <h1 class="text-6xl font-black tracking-tighter">ALL GEAR</h1>
+            
+            <!-- Filters -->
+            <div class="flex flex-wrap gap-3">
+                <button onclick="filterCategory('all')" class="category-btn active px-6 py-2 rounded-3xl bg-orange-500">All</button>
+                <button onclick="filterCategory('Running')" class="category-btn px-6 py-2 rounded-3xl border border-zinc-700 hover:border-orange-500">Running</button>
+                <button onclick="filterCategory('Football')" class="category-btn px-6 py-2 rounded-3xl border border-zinc-700 hover:border-orange-500">Football</button>
+                <button onclick="filterCategory('Basketball')" class="category-btn px-6 py-2 rounded-3xl border border-zinc-700 hover:border-orange-500">Basketball</button>
+                <button onclick="filterCategory('Fitness')" class="category-btn px-6 py-2 rounded-3xl border border-zinc-700 hover:border-orange-500">Fitness</button>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="mb-12">
+            <input id="searchInput" 
+                   onkeyup="filterProducts()"
+                   type="text" 
+                   placeholder="Search products..." 
+                   class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-8 py-5 text-lg focus:outline-none focus:border-orange-500">
+        </div>
+
+        <div id="shop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <!-- PASTE THE EXACT SAME FOOTER FROM index.html HERE -->
+    <!-- PASTE THE EXACT SAME PRODUCT MODAL HTML FROM index.html HERE -->
+
+    <script>
+        // Paste the ENTIRE <script> block from index.html here (including products array, cart logic, showProduct, addToCart, etc.)
+        // Just change the window.onload part to:
+        window.onload = function() {
+            renderAllProducts()
+            updateCartCount()
+        }
+
+        function renderAllProducts(filteredProducts = products) {
+            const grid = document.getElementById('shop-grid')
+            grid.innerHTML = ''
+            filteredProducts.forEach(product => {
+                // Same card HTML as in featured (copy-paste the card creation code)
+                const card = document.createElement('div')
+                card.className = 'product-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer'
+                card.innerHTML = `
+                    <div class="relative">
+                        <img src="${product.img}" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-black/70 text-xs px-3 py-1 rounded-full">${product.category}</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-semibold text-lg">${product.name}</h3>
+                        <p class="text-orange-500 text-2xl font-bold">$${product.price}</p>
+                        <div class="flex gap-3 mt-6">
+                            <button onclick="addToCart(${product.id}); event.stopImmediatePropagation()" 
+                                    class="flex-1 bg-white text-black py-3 rounded-2xl font-medium hover:bg-orange-500 hover:text-white transition">
+                                Add to Cart
+                            </button>
+                            <button onclick="showProduct(${product.id}); event.stopImmediatePropagation()" 
+                                    class="flex-1 border border-zinc-700 py-3 rounded-2xl font-medium hover:border-orange-500 transition">
+                                Details
+                            </button>
+                        </div>
+                    </div>
+                `
+                card.onclick = () => showProduct(product.id)
+                grid.appendChild(card)
+            })
+        }
+
+        function filterCategory(cat) {
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active', 'bg-orange-500'))
+            event.target.classList.add('active', 'bg-orange-500')
+            
+            if (cat === 'all') {
+                renderAllProducts(products)
+            } else {
+                const filtered = products.filter(p => p.category === cat)
+                renderAllProducts(filtered)
+            }
+        }
+
+        function filterProducts() {
+            const term = document.getElementById('searchInput').value.toLowerCase()
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(term) || 
+                p.category.toLowerCase().includes(term)
+            )
+            renderAllProducts(filtered)
+        }
+    </script>
+</body>
+</html>
