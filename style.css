@@ -1,0 +1,31 @@
+/* styles.css */
+:root {
+    --primary: #f97316;       /* orange-500 */
+    --primary-dark: #ea580c;
+    --bg-dark: #0a0a0a;
+    --card: #111111;
+    --text: #ffffff;
+    --text-muted: #a1a1aa;
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text);
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+a:hover {
+    color: var(--primary);
+}
+
+/* Product card hover effect (if you want to move from inline style) */
+.product-card {
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.4);
+}
+
+/* Add your other custom styles here later */
