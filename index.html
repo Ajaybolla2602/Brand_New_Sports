@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportGear - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .hero-bg { background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://picsum.photos/id/1015/1920/1080'); }
+        .product-card { transition: all 0.3s; }
+        .product-card:hover { transform: scale(1.05); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white">
+    <!-- NAVBAR (copy this exact block to shop.html and cart.html) -->
+    <nav class="bg-black sticky top-0 z-50 border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-dumbbell text-3xl text-orange-500"></i>
+                <span class="text-2xl font-bold tracking-tighter">SPORTGEAR</span>
+            </div>
+            
+            <div class="flex gap-8 text-sm font-medium">
+                <a href="index.html" class="hover:text-orange-500 transition">HOME</a>
+                <a href="shop.html" class="hover:text-orange-500 transition">SHOP</a>
+                <a href="cart.html" class="hover:text-orange-500 transition flex items-center gap-2">
+                    CART
+                    <span id="cart-count" class="bg-orange-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">0</span>
+                </a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button onclick="toggleSearch()" class="text-xl"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="text-xl"><i class="fa-solid fa-user"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero-bg h-screen flex items-center justify-center text-center">
+        <div class="max-w-4xl px-6">
+            <h1 class="text-7xl font-black tracking-tighter mb-4">GEAR UP.<br>DOMINATE.</h1>
+            <p class="text-xl text-zinc-300 mb-8">Premium sports equipment at unbeatable prices</p>
+            <a href="shop.html" class="inline-block bg-orange-500 hover:bg-orange-600 px-10 py-4 rounded-full text-lg font-semibold transition">SHOP NOW</a>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="py-20 max-w-7xl mx-auto px-6">
+        <div class="flex justify-between items-end mb-12">
+            <h2 class="text-5xl font-bold tracking-tighter">Featured Gear</h2>
+            <a href="shop.html" class="text-orange-500 flex items-center gap-2 hover:gap-4 transition">View all <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        
+        <div id="featured-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="bg-zinc-900 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">Shop by Sport</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <a href="shop.html" onclick="filterByCategory('Running')" class="group">
+                    <div class="bg-zinc-800 rounded-3xl overflow-hidden h-80 flex items-center justify-center relative">
+                        <img src="https://picsum.photos/id/201/800/800" class="w-full h-full object-cover group-hover:scale-110 transition">
+                        <div class="absolute bottom-8 left-8 text-3xl font-bold">RUNNING</div>
+                    </div>
+                </a>
+                <a href="shop.html" onclick="filterByCategory('Football')" class="group">
+                    <div class="bg-zinc-800 rounded-3xl overflow-hidden h-80 flex items-center justify-center relative">
+                        <img src="https://picsum.photos/id/29/800/800" class="w-full h-full object-cover group-hover:scale-110 transition">
+                        <div class="absolute bottom-8 left-8 text-3xl font-bold">FOOTBALL</div>
+                    </div>
+                </a>
+                <a href="shop.html" onclick="filterByCategory('Basketball')" class="group">
+                    <div class="bg-zinc-800 rounded-3xl overflow-hidden h-80 flex items-center justify-center relative">
+                        <img src="https://picsum.photos/id/160/800/800" class="w-full h-full object-cover group-hover:scale-110 transition">
+                        <div class="absolute bottom-8 left-8 text-3xl font-bold">BASKETBALL</div>
+                    </div>
+                </a>
+                <a href="shop.html" onclick="filterByCategory('Fitness')" class="group">
+                    <div class="bg-zinc-800 rounded-3xl overflow-hidden h-80 flex items-center justify-center relative">
+                        <img src="https://picsum.photos/id/201/800/800" class="w-full h-full object-cover group-hover:scale-110 transition">
+                        <div class="absolute bottom-8 left-8 text-3xl font-bold">FITNESS</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER (copy to all pages) -->
+    <footer class="bg-black py-16 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 text-center text-zinc-400 text-sm">
+            © 2026 SportGear. Made with ❤️ for athletes.
+        </div>
+    </footer>
+
+    <!-- PRODUCT MODAL -->
+    <div id="productModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100]">
+        <div class="bg-zinc-900 rounded-3xl max-w-2xl w-full mx-4 overflow-hidden">
+            <div class="p-8 flex gap-8" id="modal-content">
+                <!-- JS populated -->
+            </div>
+            <div class="px-8 py-6 border-t border-zinc-800 flex justify-end gap-4">
+                <button onclick="closeModal()" class="px-8 py-3 rounded-full border border-zinc-700">Close</button>
+                <button onclick="addCurrentToCart()" class="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-full">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script
+        tailwind.config = { content: ["*"], theme: { extend: {} } }
+
+        // PRODUCTS DATABASE (same in shop.html)
+        const products = [
+            { id: 1, name: "Pro Runner Shoes", price: 79.99, category: "Running", img: "https://picsum.photos/id/1015/600/600", desc: "Lightweight carbon plate shoes. Perfect for marathons and daily training." },
+            { id: 2, name: "Elite Football Jersey", price: 49.99, category: "Football", img: "https://picsum.photos/id/29/600/600", desc: "Breathable mesh fabric. Official team design." },
+            { id: 3, name: "Pro Basketball", price: 29.99, category: "Basketball", img: "https://picsum.photos/id/160/600/600", desc: "Official size and weight. Indoor/outdoor use." },
+            { id: 4, name: "Premium Yoga Mat", price: 24.99, category: "Fitness", img: "https://picsum.photos/id/201/600/600", desc: "Non-slip 6mm thickness with carrying strap." },
+            { id: 5, name: "Aero Cycling Helmet", price: 59.99, category: "Cycling", img: "https://picsum.photos/id/251/600/600", desc: "Lightweight EPS foam with 20 vents." },
+            { id: 6, name: "Graphite Tennis Racket", price: 89.99, category: "Tennis", img: "https://picsum.photos/id/29/600/600", desc: "98 sq in head. Perfect power and control." },
+            { id: 7, name: "Match Soccer Ball", price: 34.99, category: "Football", img: "https://picsum.photos/id/160/600/600", desc: "FIFA approved. Excellent durability." },
+            { id: 8, name: "Lifting Gym Gloves", price: 19.99, category: "Fitness", img: "https://picsum.photos/id/201/600/600", desc: "Genuine leather palm with wrist support." }
+        ]
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || []
+        let currentProductId = null
+
+        // Render featured products on home
+        function renderFeatured() {
+            const grid = document.getElementById('featured-grid')
+            grid.innerHTML = ''
+            const featured = products.slice(0, 4)
+            
+            featured.forEach(product => {
+                const card = document.createElement('div')
+                card.className = 'product-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer'
+                card.innerHTML = `
+                    <div class="relative">
+                        <img src="${product.img}" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-black/70 text-xs px-3 py-1 rounded-full">${product.category}</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-semibold text-lg">${product.name}</h3>
+                        <p class="text-orange-500 text-2xl font-bold">$${product.price}</p>
+                        <div class="flex gap-3 mt-6">
+                            <button onclick="addToCart(${product.id}); event.stopImmediatePropagation()" 
+                                    class="flex-1 bg-white text-black py-3 rounded-2xl font-medium hover:bg-orange-500 hover:text-white transition">
+                                Add to Cart
+                            </button>
+                            <button onclick="showProduct(${product.id}); event.stopImmediatePropagation()" 
+                                    class="flex-1 border border-zinc-700 py-3 rounded-2xl font-medium hover:border-orange-500 transition">
+                                Details
+                            </button>
+                        </div>
+                    </div>
+                `
+                card.onclick = () => showProduct(product.id)
+                grid.appendChild(card)
+            })
+        }
+
+        function showProduct(id) {
+            currentProductId = id
+            const product = products.find(p => p.id === id)
+            if (!product) return
+            
+            const modalContent = document.getElementById('modal-content')
+            modalContent.innerHTML = `
+                <img src="${product.img}" class="w-1/2 rounded-2xl object-cover">
+                <div class="flex-1">
+                    <div class="text-xs uppercase tracking-widest text-orange-500 mb-2">${product.category}</div>
+                    <h2 class="text-4xl font-bold mb-3">${product.name}</h2>
+                    <div class="text-5xl font-bold text-orange-500 mb-6">$${product.price}</div>
+                    <p class="text-zinc-300 leading-relaxed">${product.desc}</p>
+                </div>
+            `
+            document.getElementById('productModal').classList.remove('hidden')
+            document.getElementById('productModal').classList.add('flex')
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('productModal')
+            modal.classList.add('hidden')
+            modal.classList.remove('flex')
+        }
+
+        function addCurrentToCart() {
+            if (currentProductId) {
+                addToCart(currentProductId)
+                closeModal()
+            }
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id)
+            const existing = cart.find(item => item.id === id)
+            
+            if (existing) {
+                existing.qty++
+            } else {
+                cart.push({ ...product, qty: 1 })
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart))
+            updateCartCount()
+            
+            // Toast notification
+            const toast = document.createElement('div')
+            toast.className = 'fixed bottom-8 right-8 bg-green-600 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3'
+            toast.innerHTML = `✅ <span>${product.name} added to cart!</span>`
+            document.body.appendChild(toast)
+            setTimeout(() => toast.remove(), 2500)
+        }
+
+        function updateCartCount() {
+            const countEl = document.getElementById('cart-count')
+            let totalItems = 0
+            cart.forEach(item => totalItems += item.qty)
+            countEl.textContent = totalItems
+        }
+
+        function toggleSearch() {
+            alert("Search feature coming in full version! For now, use filters in Shop page.")
+        }
+
+        // Initialize
+        window.onload = function() {
+            renderFeatured()
+            updateCartCount()
+        }
+    </script>
+</body>
+</html>
